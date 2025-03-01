@@ -6,7 +6,20 @@ use Illuminate\Http\Request;
 
 class UserController extends Controller
 {
-    public function index(UserServices $UserService){
-        return $UserService->listUsers();
+    public function index(UserServices $userService){
+        return $userService->listUsers();
     }
+
+    public function first(UserServices $userService) {
+        return collect($userService->listUsers())->first();
+    }
+
+    public function show(UserServices $UserService, $id){
+        $user = collect($UserService->listUsers())->filter(function($item) use ($id){
+            return $item['id'] == $id;
+        })->first();
+
+        return $user;   
+    }
+    
 }
