@@ -1,9 +1,12 @@
 <?php
 
+use App\Http\Controllers\ProductController;
 use App\Http\Controllers\UserController;
+use App\Services\ProductService;
 use App\Services\UserServices;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+
 use Laravel\Sanctum\Http\Controllers\CsrfCookieController;
 use PhpParser\Node\Stmt\Echo_;
 
@@ -72,6 +75,21 @@ Route::get('/token', function (Request $request){
 Route::post('/token', function (Request $request){
     return $request->all();
 });
+
+
+//controller -> Middleware
+
+Route::get('/users', [UserController::class,'index'])->middleware('user-middleware');
+//resources
+Route::resource('products', ProductController::class);
+
+//view data
+
+Route::get('/product-list',function(ProductService $productService){
+    $data['products'] = $productService->listProducts();
+    return view ('product.list', $data);
+});
+
 
 
 
