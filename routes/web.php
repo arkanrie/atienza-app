@@ -11,8 +11,12 @@ use Laravel\Sanctum\Http\Controllers\CsrfCookieController;
 use PhpParser\Node\Stmt\Echo_;
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('welcome', ['name' => 'atienza-app']);
 });
+
+Route::get('/users', [UserController::class,'index']);
+
+Route::resource('products', ProductController::class);
 
 Route::get('/test-container', function (Request $request) {
     return $request->input('key');
@@ -79,9 +83,9 @@ Route::post('/token', function (Request $request){
 
 //controller -> Middleware
 
-Route::get('/users', [UserController::class,'index'])->middleware('user-middleware');
+// Route::get('/users', [UserController::class,'index'])->middleware('user-middleware');
 //resources
-Route::resource('products', ProductController::class);
+//Route::resource('products', ProductController::class);
 
 //view data
 

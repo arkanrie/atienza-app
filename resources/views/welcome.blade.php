@@ -1,6 +1,5 @@
-<!DOCTYPE html>
-<head>
-    <body>
-        welcome to me atienza-app
-    </body>
-</head>
+<x-layout>
+    <x-slot:heading>
+        <h1>Welcome to {{ $name }}</h1>
+    </x-slot>
+</x-layout>
